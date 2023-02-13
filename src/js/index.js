@@ -3,9 +3,7 @@ const main = document.querySelector(".main");
 
 const getAdvice = async () => {
   const response = await fetch(urlApi);
-  const data = await response.json()
-  console.log(response)
-  console.log(data)
+  const data = await response.json();
 
   const container = document.createElement("div");
   container.classList.add("container");
@@ -27,11 +25,19 @@ const getAdvice = async () => {
   img.setAttribute("src", "src/images/pattern-divider-mobile.svg");
   img.setAttribute("alt", "Divider");
 
+  const generateAdvice = async () => {
+    const response = await fetch(urlApi);
+    const data = await response.json()
+    adviceId.innerHTML = `Advice #${data.slip.id}`;
+    adviceQuote.innerHTML = `<p>${data.slip.advice}</p>`;
+  }
+
   const adviceBtn = document.createElement("button");
   adviceBtn.classList.add("advice-btn");
   const iconDice = document.createElement("img");
   iconDice.setAttribute("src", "src/images/icon-dice.svg");
   iconDice.setAttribute("alt", "Dice");
+  adviceBtn.addEventListener("click", generateAdvice)
   
   adviceBtn.append(iconDice);
   adviceDivider.append(source);
